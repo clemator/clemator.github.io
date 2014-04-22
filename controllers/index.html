@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" style="text/css" href="../views/index.css">
+		<link rel="stylesheet" style="text/css" href="../bootstrap/css/bootstrap.min.css">
+		<title>Asuldian's Website</title>
+		<script src="auth.js"></script>
+		<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+		<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript">
+		  var clientId = '219191596829';
+
+		  var apiKey = 'AIzaSyD6jgZkBrETrJhcnLqZ3IC0A27xQILaQ-U';
+
+		  var scopes = 'https://www.googleapis.com/auth/plus.me';
+
+		  function handleClientLoad() {
+			// Step 2: Reference the API key
+			gapi.client.setApiKey(apiKey);
+			window.setTimeout(checkAuth,1);
+		  }
+
+		  function checkAuth() {
+			gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+		  }
+
+		  function handleAuthResult(authResult) {
+			var authorizeButton = document.getElementById('authorize-button');
+			if (authResult && !authResult.error) {
+			  authorizeButton.style.visibility = 'hidden';
+			  makeApiCall();
+			} else {
+			  authorizeButton.style.visibility = '';
+			  authorizeButton.onclick = handleAuthClick;
+			}
+		  }
+
+		  function handleAuthClick(event) {
+			// Step 3: get authorization to use private data
+			gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+			return false;
+		  }
+
+		  // Load the API and make an API call.  Display the results on the screen.
+		  function makeApiCall() {
+			// Step 4: Load the Google+ API
+			gapi.client.load('youtube', 'v3', function() {
+			  // Step 5: Assemble the API request
+			  var request = gapi.client.plus.people.get({
+				'userId': 'me'
+			  });
+			  // Step 6: Execute the API request
+			  request.execute(function(resp) {
+				var heading = document.createElement('h4');
+				var image = document.createElement('img');
+				image.src = resp.image.url;
+				heading.appendChild(image);
+				heading.appendChild(document.createTextNode(resp.displayName));
+
+				document.getElementById('content').appendChild(heading);
+			  });
+			});
+		  }
+		</script>
+		<script type="text/javascript">
+			var apiKey = 'AIzaSyD6jgZkBrETrJhcnLqZ3IC0A27xQILaQ-U';
+			var query;
+			window.onload = function() {
+				$("#search-button").click(function() {
+					var q = $("#search-bar-content").val();
+					query = $.ajax({
+						type: 'GET',
+						dataType: "json",
+						url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&order=relevance&q=" + q + "&key=" + apiKey
+					});
+					query.done(function() {
+						$("#search-results").replaceWith('<p id="search-results">Total results : ' + query.responseJSON.pageInfo.totalResults);
+						$("#search-video-result").replaceWith('<div id="search-video-result"></div>');
+						$.each(query.responseJSON.items, function(i, item) {
+							if (query.responseJSON.items[i].id.kind == "youtube#channel")
+								$("#search-video-result").append("<strong>Channel :</strong> " + query.responseJSON.items[i].snippet.title + "</br>" + '<img id="channel' + query.responseJSON.items[i].id.channelId + '" src="' + query.responseJSON.items[i].snippet.thumbnails.default.url + '"/></br>');
+							else if (query.responseJSON.items[i].id.kind == "youtube#video")
+								$("#search-video-result").append(query.responseJSON.items[i].snippet.title + "</br>" + '<img id="' + query.responseJSON.items[i].id.videoId + '" src="' + query.responseJSON.items[i].snippet.thumbnails.medium.url + '" style="cursor: pointer;"/></br>');
+						});
+						$("img").click(function(event) {
+							var id = event.target.id;
+							if (id.length == 11)
+								$(this).replaceWith('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>');
+						});
+						$("#search-video-result").show();
+						$("#search-results").show();
+					});
+					
+				});
+			};
+		</script>
+	</head>
+	<body>
+	<legend>Search video</legend>
+		<button id="authorize-button" style="visibility: hidden">Authorize</button>
+		<input id="search-bar-content" type="text">
+		<button id="search-button" class="btn btn-primary">Search</button></br>
+		<p id="search-results" hidden>
+		</p>
+		<div id="search-video-result" hidden>
+			
+		</div>
+	</body>
+</html>
