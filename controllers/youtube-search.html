@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" style="text/css" href="../views/youtube-search.css">
+		<link rel="stylesheet" style="text/css" href="../bootstrap/css/bootstrap.min.css">
+		<title>Asuldian's Website</title>
+		<script src="auth.js"></script>
+		<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+		<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript">
+			var apiKey = 'AIzaSyD6jgZkBrETrJhcnLqZ3IC0A27xQILaQ-U';
+			var query;
+			window.onload = function() {
+				$("#search-button").click(function() {
+					var q = $("#search-bar-content").val();
+					var items = $(".select-items").val();
+					query = $.ajax({
+						type: 'GET',
+						dataType: "json",
+						url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=" + items + "&order=relevance&q=" + q + "&key=" + apiKey
+					});
+					query.done(function() {
+						$("#search-results").replaceWith('<p id="search-results">Total results : ' + query.responseJSON.pageInfo.totalResults);
+						$("#search-video-result").replaceWith('<div id="search-video-result"></div>');
+						$.each(query.responseJSON.items, function(i, item) {
+							if (query.responseJSON.items[i].id.kind == "youtube#channel")
+								$("#search-video-result").append("<strong>Channel :</strong> " + query.responseJSON.items[i].snippet.title + "</br>" + '<img id="channel' + query.responseJSON.items[i].id.channelId + '" src="' + query.responseJSON.items[i].snippet.thumbnails.default.url + '"/></br>');
+							else if (query.responseJSON.items[i].id.kind == "youtube#video")
+								$("#search-video-result").append(query.responseJSON.items[i].snippet.title + "</br>" + '<img id="' + query.responseJSON.items[i].id.videoId + '" src="' + query.responseJSON.items[i].snippet.thumbnails.medium.url + '" style="cursor: pointer;"/></br>');
+						});
+						$("img").click(function(event) {
+							var id = event.target.id;
+							if (id.length == 11)
+								$(this).replaceWith('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>');
+						});
+						$("#search-video-result").show();
+						$("#search-results").show();
+					});
+					
+				});
+			};
+		</script>
+	</head>
+	<body>
+		<div id="top-title">
+			<div class="navbar navbar-static-top">
+				<div class="navbar-inner">
+					<a class="brand" href="index.html">Asuldian</a>
+					<ul class="nav">
+					  <li><a href="index.html">Home</a></li>
+					  <li class="active"><a href="youtube-search.html">Youtube search</a></li>
+					  <li><a href="#">Link</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="page-content" class="navbar-text">
+			<legend>Search video</legend>
+			<form action="#">
+				<select name="items" class="select-items" >
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="50">50</option>
+				</select>
+			</form>
+			<button id="authorize-button" style="visibility: hidden">Authorize</button>
+			<input id="search-bar-content" type="text">
+			<button id="search-button" class="btn btn-primary">Search</button></br>
+			<p id="search-results" hidden>
+			</p>
+			<div id="search-video-result" hidden>
+				
+			</div>
+		</div>
+	</body>
+</html>
