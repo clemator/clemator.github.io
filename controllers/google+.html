@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" style="text/css" href="../views/google+.css">
+		<link rel="stylesheet" style="text/css" href="../bootstrap/css/bootstrap.min.css">
+		<title>Asuldian's Website</title>
+		<script src="google+.js"></script>
+	</head>
+	<body>
+		<div id="top-title">
+			<div class="navbar navbar-static-top">
+				<div class="navbar-inner">
+					<a class="brand" href="../index.html">Asuldian</a>
+					<ul class="nav">
+					  <li><a href="../index.html">Home</a></li>
+					  <li><a href="youtube-search.html">Youtube search</a></li>
+					  <li class ="active"><a href="google+.html">Google +</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="page-content" class="navbar-text">
+			<button id="authorize-button" style="visibility: hidden">Authorize</button>
+			<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+			<div id="content"></div>
+		</div>
+	</body>
+</html>
