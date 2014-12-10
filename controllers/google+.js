@@ -33,6 +33,7 @@ function makeApiCall() {
           'userId': 'me'
             });
       request.execute(function(resp) {
+			console.log(resp);
 		  var heading = document.createElement('h4');
 		  var image = document.createElement('img');
 		  image.src = resp.image.url;
