@@ -109,8 +109,7 @@ function save()
         pps: pps,
         cursorNextCost: cursorNextCost,
 		cursorUpLvl: cursorUpLvl,
-		cursorUpNextCost: cursorUpNextCost,
-		cursorClickValue: cursorClickValue
+		cursorUpNextCost: cursorUpNextCost
     }
     localStorage.setItem("save",JSON.stringify(save));
     $("#top-alert").html(
@@ -128,7 +127,6 @@ function load()
     if (typeof savegame.cursorNextCost !== "undefined") cursorNextCost = savegame.cursorNextCost;
 	if (typeof savegame.cursorUpLvl !== "undefined") cursorUpLvl = savegame.cursorUpLvl;
 	if (typeof savegame.cursorUpNextCost !== "undefined") cursorUpNextCost = savegame.cursorUpNextCost;
-	if (typeof savegame.cursorClickValue !== "undefined") cursorClickValue = savegame.cursorClickValue;
     refreshAll();
 };
 
@@ -150,6 +148,7 @@ function refreshPps()
 
 function refreshCursors()
 {
+	cursorClickValue = 2 ^ (cursorUpLvl - 1);
     $("#cursors").html(cursors);
     $("#cursorCost").html(cursorNextCost);
 	$("#cursorUpCost").html(cursorUpNextCost);
