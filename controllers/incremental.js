@@ -2,11 +2,11 @@ var pointName = "Smarties";
 var points = 0;
 var pps = 0;
 var cursors = 0;
-var cursorsUpLvl = 1;
+var cursorUpLvl = 1;
 var cursorNextCost = 10;
 var cursorUpNextCost = 100;
 var cursorClickValue = 1;
-var cursorsPps = 0;
+var cursorPps = 0;
 var prestige = 0;
 
 $(document).ready(function () {
@@ -34,7 +34,11 @@ $(document).ready(function () {
     });
 });
 
-/* MATH PART */
+/*
+***************
+** MATH PART **
+***************
+*/
 
 function incrementPoint(x)
 {
@@ -52,12 +56,16 @@ function decrementPoint(x)
 
 function computePps()
 {
-	cursorsPps = cursors * cursorClickValue;
-	pps = cursorsPps;
+	cursorPps = cursors * cursorClickValue;
+	pps = cursorPps;
 	refreshPps();
 };
 
-/* BUY UPGRADE PART */
+/*
+**********************
+** BUY UPGRADE PART **
+**********************
+*/
 
 function buyCursor()
 {
@@ -74,19 +82,23 @@ function buyCursor()
 
 function upCursors()
 {
-	cursorUpNextCost = Math.floor(100 * Math.pow(10.0, cursorsUpLvl - 1));
+	cursorUpNextCost = Math.floor(100 * Math.pow(10.0, cursorUpLvl - 1));
 	if (points >= cursorUpNextCost) {
-        cursorsUpLvl += 1;
+        cursorUpLvl += 1;
 		cursorClickValue *= 2;
     	decrementPoint(cursorUpNextCost);
 		computePps();
     };
-	cursorUpNextCost = Math.floor(100 * Math.pow(10.0, cursorsUpLvl - 1));
+	cursorUpNextCost = Math.floor(100 * Math.pow(10.0, cursorUpLvl - 1));
     refreshCursors();
     toggleBuyable();
 };
 
-/* SAVE AND LOAD PART */
+/*
+************************
+** SAVE AND LOAD PART **
+************************
+*/
 
 function save()
 {
@@ -95,7 +107,10 @@ function save()
         cursors: cursors,
         prestige: prestige,
         pps: pps,
-        cursorNextCost: cursorNextCost
+        cursorNextCost: cursorNextCost,
+		cursorUpLvl: cursorUpLvl,
+		cursorUpNextCost: cursorUpNextCost,
+		cursorClickValue: cursorClickValue
     }
     localStorage.setItem("save",JSON.stringify(save));
     $("#top-alert").html(
@@ -111,10 +126,17 @@ function load()
     if (typeof savegame.prestige !== "undefined") prestige = savegame.prestige;
     if (typeof savegame.pps !== "undefined") pps = savegame.pps;
     if (typeof savegame.cursorNextCost !== "undefined") cursorNextCost = savegame.cursorNextCost;
+	if (typeof savegame.cursorUpLvl !== "undefined") cursorUpLvl = savegame.cursorUpLvl;
+	if (typeof savegame.cursorUpNextCost !== "undefined") cursorUpNextCost = savegame.cursorUpNextCost;
+	if (typeof savegame.cursorClickValue !== "undefined") cursorClickValue = savegame.cursorClickValue;
     refreshAll();
 };
 
-/* REFRESH PART */
+/*
+******************
+** REFRESH PART **
+******************
+*/
 
 function refreshPoints()
 {
@@ -131,7 +153,7 @@ function refreshCursors()
     $("#cursors").html(cursors);
     $("#cursorCost").html(cursorNextCost);
 	$("#cursorUpCost").html(cursorUpNextCost);
-	$("#cursorsUpLvl").html(cursorsUpLvl);
+	$("#cursorUpLvl").html(cursorUpLvl);
 };
 
 function refreshAll()
