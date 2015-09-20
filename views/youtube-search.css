@@ -1,0 +1,13 @@
+#page-content {
+	position: relative;
+}
+
+#search-bar-content {
+	margin-top: 10px;
+}
+
+.select-items {
+	margin-top: 10px;
+	width: 60px;
+	position: absolute;
+}
