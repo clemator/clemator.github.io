@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" style="text/css" href="views/index.css">
-		<link rel="stylesheet" style="text/css" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" style="text/css" href="assets/css/index.css">
+		<link rel="stylesheet" style="text/css" href="assets/css/bootstrap.min.css">
 		<title>Asuldian's Website</title>
 		<script src="controllers/auth.js"></script>
 		<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
@@ -102,18 +102,7 @@
 		</script>
 	</head>
 	<body>
-		<div id="top-title">
-			<div class="navbar navbar-static-top">
-				<div class="navbar-inner">
-					<a class="brand" href="index.html">Asuldian</a>
-					<ul class="nav">
-					  <li class="active"><a href="index.html">Home</a></li>
-					  <li><a href="controllers/youtube-search.html">Youtube search</a></li>
-					  <li><a href="controllers/google+.html">Google +</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<?php include 'views/banner.html'; ?>
 		<div id="page-content" class="navbar-text">
 			<a href='#' onClick='login();' id="loginText"> Click here to login </a>
 			<a href="#" style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout </a>
