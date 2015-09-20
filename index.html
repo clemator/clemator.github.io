@@ -102,7 +102,19 @@
 		</script>
 	</head>
 	<body>
-		<?php include 'views/banner.html'; ?>
+		<div id="top-title">
+			<div class="navbar navbar-static-top">
+				<div class="navbar-inner">
+					<a class="brand" href="index.html">Asuldian</a>
+					<ul class="nav">
+					  <li class="active"><a href="index.html">Home</a></li>
+					  <li><a href="views/youtube-search.html">Youtube search</a></li>
+					  <li><a href="views/google+.html">Google +</a></li>
+					  <li><a href="views/incremental.html">The game</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<div id="page-content" class="navbar-text">
 			<a href='#' onClick='login();' id="loginText"> Click here to login </a>
 			<a href="#" style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout </a>
