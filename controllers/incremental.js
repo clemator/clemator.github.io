@@ -176,6 +176,19 @@ function toggleBuyable()
     }
 };
 
+/*
+**********************
+** DEBUG TOOLS PART **
+**********************
+*/
+
+function displayCursorsInfo() {
+    console.log('CURSORS OWNED : ' + cursors);
+    console.log('CURSORS LEVEL : ' + cursorUpLvl);
+    console.log('CURSORS CLICK VALUE : ' + cursorClickValue);
+    console.log('CURSORS PPS : ' + (cursorClickValue * cursors));
+}
+
 window.setInterval(function () {
     incrementPoint(pps);
     toggleBuyable();
