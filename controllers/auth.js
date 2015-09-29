@@ -4,7 +4,7 @@
 // you need to register your own client ID.
 var OAUTH2_CLIENT_ID = '43658070807.apps.googleusercontent.com';
 var OAUTH2_SCOPES = [
-  'https://www.googleapis.com/auth/youtube'
+  'https://www.googleapis.com/auth/plus.me'
 ];
 
 // Upon loading, the Google APIs JS client automatically invokes this callback.
