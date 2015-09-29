@@ -29,6 +29,7 @@
                             response = response['feed']['entry'];
                             for (var i = 0; i < response.length; i++) {
                                 if (typeof response[i]['gd$email'] != 'undefined')
+                                    console.log(response[i]);
                                     console.log(response[i]['gd$email'][0]['address']);
                             }
                         }
