@@ -6,11 +6,30 @@
 		<link rel="stylesheet" style="text/css" href="assets/css/bootstrap.min.css">
 		<title>Asuldian's Website</title>
 		<script src="controllers/auth.js"></script>
-        <script src="https://apis.google.com/js/plus.js"></script>
-		<script src="https://apis.google.com/js/client:plus.js"></script>
+		<script src="https://apis.google.com/js/client.js"></script>
 		<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 		<script>
-			var APIKEY		=	'AIzaSyBh9dIsvOzx8GI6TcogQq-tzvDsa88zLDA';
+            function auth() {
+                console.log('AUTH');
+                var config = {
+                    'client_id': '43658070807.apps.googleusercontent.com',
+                    'scope': 'https://www.google.com/m8/feeds'
+                };
+                gapi.auth.authorize(config, function() {
+                      fetch(gapi.auth.getToken());
+                });
+            }
+            function fetch(token) {
+                console.log('PROUT');
+                $.ajax({
+                    url: "https://www.google.com/m8/feeds/contacts/default/full?access_token=" + token.access_token + "&alt=json",
+                    dataType: 'jsonp',
+                    success: function(data) {
+                    console.log(JSON.stringify(data));
+                    }
+                });
+            }
+			/*var APIKEY		=	'AIzaSyBh9dIsvOzx8GI6TcogQq-tzvDsa88zLDA';
 			var OAUTHURL    =   'https://accounts.google.com/o/oauth2/auth?';
 			var VALIDURL    =   'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
 			var SCOPE       =   'https://www.googleapis.com/auth/plus.me';
@@ -97,7 +116,7 @@
 				$('#loginText').show();
 				$('#logoutText').hide();
 				loggedIn = false;
-			}
+			}*/
 		</script>
 	</head>
 	<body>
@@ -115,7 +134,7 @@
 			</div>
 		</div>
 		<div id="page-content" class="navbar-text">
-			<a href='#' onClick='login();' id="loginText"> Click here to login </a>
+			<a href='#' onClick='auth();' id="loginText"> Click here to login </a>
 			<a href="#" style="display:none" id="logoutText" target='myIFrame' onclick="myIFrame.location='https://www.google.com/accounts/Logout'; startLogoutPolling();return false;"> Click here to logout </a>
 			<iframe name='myIFrame' id="myIFrame" style='display:none'></iframe>
 			<ul id="feed-list" class="thumbnails">
