@@ -28,8 +28,8 @@
                         function(response){
                             response = response['feed']['entry'];
                             for (var i = 0; i < response.length; i++) {
-                                if (typeof response['i']['gd$email'] != 'undefined')
-                                    console.log(response['i']);
+                                if (typeof response[i]['gd$email'] != 'undefined')
+                                    console.log(response[i]);
                             }
                         }
                     );
