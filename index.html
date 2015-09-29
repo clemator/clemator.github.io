@@ -61,9 +61,10 @@
 
 			function gup(url, name) {
 				name = name.replace(/[[]/,"\[").replace(/[]]/,"\]");
-				var regexS = "[\?&]"+name+"=([^&#]*)";
-				var regex = new RegExp( regexS );
-				var results = regex.exec( url );
+				var regexS = "[\?&#]" + name + "=([^&#]*)";
+				var regex = new RegExp(regexS);
+				var results = regex.exec(url);
+                console.log(regex.exec(url));
 				if( results == null )
 					return "";
 				else
