@@ -1,6 +1,9 @@
 var pointName = "Smarties";
 var points = 0;
 var pps = 0;
+var clickValue = 1;
+var clickLvl = 1;
+var clickUpNextCost = 200;
 var cursors = 0;
 var cursorUpLvl = 1;
 var cursorNextCost = 10;
@@ -11,9 +14,10 @@ var prestige = 0;
 
 $(document).ready(function () {
     $(".point-name").html(pointName);
+    toggleBuyable();
 
     $("#increment").on("click", function () {
-        incrementPoint(1);
+        incrementPoint(clickValue);
     });
 
     $("#buy-cursor").on("click", function () {
@@ -32,6 +36,10 @@ $(document).ready(function () {
     $("#load").on("click", function () {
         load();
     });
+
+    $("#upgrade-increment").on("click", function () {
+        upClick();
+     });
 });
 
 /*
@@ -67,6 +75,20 @@ function computePps()
 **********************
 */
 
+function upClick() {
+    clickUpNextCost = Math.floor(200 * Math.pow(2.5, clickLvl - 1));
+    console.log(clickUpNextCost);
+    if (points >= clickUpNextCost) {
+        clickValue *= 2;
+        clickLvl += 1;
+        decrementPoint(clickUpNextCost);
+        computePps();
+    }
+    clickUpNextCost = Math.floor(200 * Math.pow(2.5, clickLvl - 1));
+    refreshClick();
+    toggleBuyable();
+};
+
 function buyCursor()
 {
     cursorNextCost = Math.floor(10 * Math.pow(1.3, cursors));
@@ -74,7 +96,7 @@ function buyCursor()
         cursors += 1;
     	decrementPoint(cursorNextCost);
 		computePps();
-    };
+    }
     cursorNextCost = Math.floor(10 * Math.pow(1.3, cursors));
     refreshCursors();
     toggleBuyable();
@@ -88,7 +110,7 @@ function upCursors()
 		cursorClickValue *= 2;
     	decrementPoint(cursorUpNextCost);
 		computePps();
-    };
+    }
 	cursorUpNextCost = Math.floor(100 * Math.pow(10.0, cursorUpLvl - 1));
     refreshCursors();
     toggleBuyable();
@@ -155,15 +177,28 @@ function refreshCursors()
 	$("#cursorUpLvl").html(cursorUpLvl);
 };
 
+function refreshClick() {
+    clickValue = Math.pow(2, clickLvl - 1);
+    $("#click-level").html(clickLvl);
+    $("#click-up-cost").html(clickUpNextCost);
+    $("#click-value").html(clickValue);
+};
+
 function refreshAll()
 {
     refreshCursors();
     refreshPps();
     refreshPoints();
+    refreshClick();
 };
 
 function toggleBuyable()
 {
+    if (clickUpNextCost > points) {
+        $("#upgrade-increment").prop("disabled", true);
+    } else {
+        $("#upgrade-increment").prop("disabled", false);
+    }
     if (cursorNextCost > points) {
         $("#buy-cursor").prop("disabled", true);
     } else {
