@@ -148,7 +148,7 @@ function refreshPps()
 
 function refreshCursors()
 {
-	cursorClickValue = 2 ^ (cursorUpLvl - 1);
+	cursorClickValue = Math.pow(2, cursorUpLvl - 1);
     $("#cursors").html(cursors);
     $("#cursorCost").html(cursorNextCost);
 	$("#cursorUpCost").html(cursorUpNextCost);
