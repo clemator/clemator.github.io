@@ -12,8 +12,13 @@
 		<script type="text/javascript">
 			var apiKey = 'AIzaSyD6jgZkBrETrJhcnLqZ3IC0A27xQILaQ-U';
 			var query;
-			window.onload = function() {
-				$("#search-button").click(function() {
+            function handleKey(e) {
+                if (e.keyCode == 13) {
+                    $("#search-button").click();
+                }
+            }
+			window.onload = function() {                
+                $("#search-button").click(function() {
 					var q = $("#search-bar-content").val();
 					var items = $(".select-items").val();
 					query = $.ajax({
@@ -26,9 +31,9 @@
 						$("#search-video-result").replaceWith('<div id="search-video-result"></div>');
 						$.each(query.responseJSON.items, function(i, item) {
 							if (query.responseJSON.items[i].id.kind == "youtube#channel")
-								$("#search-video-result").append("<strong>Channel :</strong> " + query.responseJSON.items[i].snippet.title + "</br>" + '<img id="channel' + query.responseJSON.items[i].id.channelId + '" src="' + query.responseJSON.items[i].snippet.thumbnails.default.url + '"/></br>');
+                                $("#search-video-result").append("<div class='result-item'><span class='title'><strong>Channel :</strong> " + query.responseJSON.items[i].snippet.title + "</span></br>" + '<img id="channel' + query.responseJSON.items[i].id.channelId + '" src="' + query.responseJSON.items[i].snippet.thumbnails.default.url + '"/></br></div>');
 							else if (query.responseJSON.items[i].id.kind == "youtube#video")
-								$("#search-video-result").append(query.responseJSON.items[i].snippet.title + "</br>" + '<img id="' + query.responseJSON.items[i].id.videoId + '" src="' + query.responseJSON.items[i].snippet.thumbnails.medium.url + '" style="cursor: pointer;"/></br>');
+								$("#search-video-result").append("<div class='result-item'><span class='title'>" + query.responseJSON.items[i].snippet.title + "</br>" + '<img id="' + query.responseJSON.items[i].id.videoId + '" src="' + query.responseJSON.items[i].snippet.thumbnails.medium.url + '" style="cursor: pointer;"/></br></div>');
 						});
 						$("img").click(function(event) {
 							var id = event.target.id;
@@ -67,7 +72,7 @@
 				</select>
 			</form>
 			<button id="authorize-button" style="visibility: hidden">Authorize</button>
-			<input id="search-bar-content" type="text">
+			<input id="search-bar-content" type="text" onkeydown="handleKey(event);">
 			<button id="search-button" class="btn btn-primary">Search</button></br>
 			<p id="search-results" hidden>
 			</p>

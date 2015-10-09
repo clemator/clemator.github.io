@@ -76,42 +76,41 @@ function computePps()
 */
 
 function upClick() {
-    clickUpNextCost = Math.floor(200 * Math.pow(2.5, clickLvl - 1));
-    console.log(clickUpNextCost);
+    clickUpNextCost = Math.floor(200 * Math.pow(2.0, clickLvl - 1));
     if (points >= clickUpNextCost) {
         clickValue *= 2;
         clickLvl += 1;
         decrementPoint(clickUpNextCost);
         computePps();
     }
-    clickUpNextCost = Math.floor(200 * Math.pow(2.5, clickLvl - 1));
+    clickUpNextCost = Math.floor(200 * Math.pow(2.0, clickLvl - 1));
     refreshClick();
     toggleBuyable();
 };
 
 function buyCursor()
 {
-    cursorNextCost = Math.floor(10 * Math.pow(1.3, cursors));
+    cursorNextCost = Math.floor(10 * Math.pow(1.2, cursors));
     if (points >= cursorNextCost) {
         cursors += 1;
     	decrementPoint(cursorNextCost);
 		computePps();
     }
-    cursorNextCost = Math.floor(10 * Math.pow(1.3, cursors));
+    cursorNextCost = Math.floor(10 * Math.pow(1.2, cursors));
     refreshCursors();
     toggleBuyable();
 };
 
 function upCursors()
 {
-	cursorUpNextCost = Math.floor(100 * Math.pow(10.0, cursorUpLvl - 1));
+	cursorUpNextCost = Math.floor(100 * Math.pow(7.0, cursorUpLvl - 1));
 	if (points >= cursorUpNextCost) {
         cursorUpLvl += 1;
 		cursorClickValue *= 2;
     	decrementPoint(cursorUpNextCost);
 		computePps();
     }
-	cursorUpNextCost = Math.floor(100 * Math.pow(10.0, cursorUpLvl - 1));
+	cursorUpNextCost = Math.floor(100 * Math.pow(7.0, cursorUpLvl - 1));
     refreshCursors();
     toggleBuyable();
 };
@@ -131,7 +130,9 @@ function save()
         pps: pps,
         cursorNextCost: cursorNextCost,
 		cursorUpLvl: cursorUpLvl,
-		cursorUpNextCost: cursorUpNextCost
+		cursorUpNextCost: cursorUpNextCost,
+        clickLvl: clickLvl,
+        clickUpNextCost: clickUpNextCost
     }
     localStorage.setItem("save",JSON.stringify(save));
     $("#top-alert").html(
@@ -149,6 +150,8 @@ function load()
     if (typeof savegame.cursorNextCost !== "undefined") cursorNextCost = savegame.cursorNextCost;
 	if (typeof savegame.cursorUpLvl !== "undefined") cursorUpLvl = savegame.cursorUpLvl;
 	if (typeof savegame.cursorUpNextCost !== "undefined") cursorUpNextCost = savegame.cursorUpNextCost;
+    if (typeof savegame.clickLvl !== "undefined") clickLvl = savegame.clickLvl;
+    if (typeof savegame.clickUpNextCost !== "undefined") clickUpNextCost = savegame.clickUpNextCost;
     refreshAll();
 };
 

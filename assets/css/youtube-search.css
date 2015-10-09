@@ -11,3 +11,10 @@
 	width: 60px;
 	position: absolute;
 }
+
+.result-item{
+    display: inline-block;
+    margin: 20px 40px 10px 40px;
+    width: 320px;
+    line-height: normal;
+}
