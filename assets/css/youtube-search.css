@@ -11,9 +11,26 @@
 	width: 60px;
 }
 
-.result-item{
+.result-video{
     display: inline-block;
     margin: 20px 40px 10px 40px;
     width: 320px;
     line-height: normal;
+}
+
+.result-channel {
+	display: inline-block;
+	margin: 20px 40px 10px 40px;
+    width: 160px;
+    line-height: normal;
+}
+
+.channelImg {
+	width: 160px;
+	cursor: pointer;
+}
+
+.videoImg {
+	width: 320px;
+	cursor: pointer;
 }

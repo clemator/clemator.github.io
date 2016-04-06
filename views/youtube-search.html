@@ -3,9 +3,20 @@
 	<select name="items" class="select-items" ng-model="data.selectedOption" ng-options="option.name for option in data.availableOptions track by option.value"></select>
 	<input id="search-bar-content" type="text" ng-keydown="handleKey($event)" ng-model="search.input">
 	<button id="search-button" class="btn btn-primary" ng-click="search()">Search</button></br>
-	<p id="search-results" hidden>
-	</p>
-	<div id="search-video-result" hidden>
-		
+	<div id="search-results" ng-show="search.results > 0"><strong>Total results:</strong> {{search.results}}</div>
+	<div id="search-video-result" ng-show="search.results > 0">
+		<div>
+			<div class="result-channel" ng-repeat="channel in search.resultChannels">
+				<div class='title'><strong>Channel :</strong> {{channel.snippet.title}} </div>
+				<img class="channelImg" id="channel{{channel.id.channelId}}" src="{{channel.snippet.thumbnails.default.url}}" ng-click="goToChannel(channel.id.channelId)" />
+			</div>
+		</div>
+		<div>
+			<div class="result-video" ng-repeat="video in search.resultVideos">
+				<div class='title'>{{video.snippet.title}}</div>
+				<img class="videoImg" id="{{video.id.videoId}}" src="{{video.snippet.thumbnails.medium.url}}" ng-click="play(video.id.videoId)" />
+				<div ng-click="search.resultVideos.splice($index, 1)"><strong>REMOVE</strong></div>
+			</div>
+		</div>
 	</div>
 </div>
