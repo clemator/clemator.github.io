@@ -6,6 +6,10 @@
 	margin-top: 10px;
 }
 
+#search-video-result { 
+	margin-top: 50px;
+}
+
 .select-items {
 	margin-top: 10px;
 	width: 60px;
@@ -16,6 +20,11 @@
     margin: 20px 40px 10px 40px;
     width: 320px;
     line-height: normal;
+}
+
+.category-title {
+	font-size: 28px;
+	font-style: underline;
 }
 
 .result-channel {

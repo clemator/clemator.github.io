@@ -5,15 +5,17 @@
 	<button id="search-button" class="btn btn-primary" ng-click="search()">Search</button></br>
 	<div id="search-results" ng-show="search.results > 0"><strong>Total results:</strong> {{search.results}}</div>
 	<div id="search-video-result" ng-show="search.results > 0">
-		<div>
+		<div ng-if="search.resultChannels.length > 0">
+			<div class="category-title"><u>Channels :</u></div>
 			<div class="result-channel" ng-repeat="channel in search.resultChannels">
-				<div class='title'><strong>Channel :</strong> {{channel.snippet.title}} </div>
+				<div class='title'><strong>{{channel.snippet.title}}</strong></div>
 				<img class="channelImg" id="channel{{channel.id.channelId}}" src="{{channel.snippet.thumbnails.default.url}}" ng-click="goToChannel(channel.id.channelId)" />
 			</div>
 		</div>
-		<div>
+		<div ng-if="search.resultVideos.length > 0">
+			<div class="category-title"><u>Videos :</u></div>
 			<div class="result-video" ng-repeat="video in search.resultVideos">
-				<div class='title'>{{video.snippet.title}}</div>
+				<div class='title'><strong>{{video.snippet.title}}</strong></div>
 				<img class="videoImg" id="{{video.id.videoId}}" src="{{video.snippet.thumbnails.medium.url}}" ng-click="play(video.id.videoId)" />
 				<div ng-click="search.resultVideos.splice($index, 1)"><strong>REMOVE</strong></div>
 			</div>
