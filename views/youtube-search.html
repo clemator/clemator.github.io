@@ -1,3 +1,19 @@
+<div class="modal" role="dialog" ng-show="playVideo != false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="stop()"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">{{playVideo.snippet.title}}</h4>
+			</div>
+			<div class="modal-body">
+				<iframe width="860" height="484" src="{{playVideoUrl}}" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="stop()">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <div id="page-content" class="navbar-text mlm">
 	<legend>Search video</legend>
 	<select name="items" class="select-items" ng-model="data.selectedOption" ng-options="option.name for option in data.availableOptions track by option.value"></select>
@@ -20,21 +36,5 @@
 				<div ng-click="search.resultVideos.splice($index, 1)"><strong>REMOVE</strong></div>
 			</div>
 		</div>
-	</div>
-	<div class="modal" role="dialog" ng-show="playVideo != false">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="stop"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">{{playVideo.snippet.title}}</h4>
-				</div>
-				<div class="modal-body">
-					<iframe width="560" height="315" src="{{playVideoUrl}}" frameborder="0" allowfullscreen></iframe>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="stop()">Close</button>
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+	</div>	
 </div>

@@ -40,8 +40,6 @@ app.controller('youtubeController', ['$scope', '$http', '$window', '$sce',
 							$scope.search.resultVideos.push(item);
 					}
 				});
-
-			// $(this).replaceWith('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>');
 		};
 		
 		$scope.play = function(index) {

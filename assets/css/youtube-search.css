@@ -47,3 +47,7 @@
 .modal {
 	display: block;
 }
+
+.modal-dialog {
+	width: 890px;
+}
