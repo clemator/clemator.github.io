@@ -1,5 +1,5 @@
-app.controller('youtubeController', ['$scope', '$http', '$window',
-	function($scope, $http, $window) {
+app.controller('youtubeController', ['$scope', '$http', '$window', '$sce',
+	function($scope, $http, $window, $sce) {
 		$scope.search = {input: "", results: 0, resultItems: [], resultVideos: [], resultChannels: []};
 		$scope.data = {
 			availableOptions: [
@@ -11,6 +11,7 @@ app.controller('youtubeController', ['$scope', '$http', '$window',
 		};
 		$scope.apiKey = 'AIzaSyD6jgZkBrETrJhcnLqZ3IC0A27xQILaQ-U';
 		$scope.playVideo = false;
+		$scope.playVideoUrl = "";
 
 		$scope.handleKey = function($event) {
 			if ($event.keyCode == 13) {
@@ -43,8 +44,14 @@ app.controller('youtubeController', ['$scope', '$http', '$window',
 			// $(this).replaceWith('<iframe width="560" height="315" src="http://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>');
 		};
 		
-		$scope.play = function(id) {
-			console.log(id);
+		$scope.play = function(index) {
+			$scope.playVideo = $scope.search.resultVideos[index];
+			$scope.playVideoUrl = $sce.trustAsResourceUrl("http://www.youtube.com/embed/" + $scope.playVideo.id.videoId + "?autoplay=1");
+		};
+		
+		$scope.stop = function() {
+			$scope.playVideo = false;
+			$scope.playVideoUrl = "";
 		};
 		
 		$scope.goToChannel = function(id) {

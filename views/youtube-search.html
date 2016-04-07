@@ -16,9 +16,25 @@
 			<div class="category-title"><u>Videos :</u></div>
 			<div class="result-video" ng-repeat="video in search.resultVideos">
 				<div class='title'><strong>{{video.snippet.title}}</strong></div>
-				<img class="videoImg" id="{{video.id.videoId}}" src="{{video.snippet.thumbnails.medium.url}}" ng-click="play(video.id.videoId)" />
+				<img class="videoImg" id="{{video.id.videoId}}" src="{{video.snippet.thumbnails.medium.url}}" ng-click="play($index)" />
 				<div ng-click="search.resultVideos.splice($index, 1)"><strong>REMOVE</strong></div>
 			</div>
 		</div>
 	</div>
+	<div class="modal" role="dialog" ng-show="playVideo != false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="stop"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">{{playVideo.snippet.title}}</h4>
+				</div>
+				<div class="modal-body">
+					<iframe width="560" height="315" src="{{playVideoUrl}}" frameborder="0" allowfullscreen></iframe>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="stop()">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 </div>
