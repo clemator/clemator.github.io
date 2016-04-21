@@ -7,6 +7,10 @@ app.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'views/youtube-search.html',
 			controller: 'youtubeController'
 		})
+		.when('/incremental', {
+			templateUrl: 'views/incremental.html',
+			controller: 'incrementalController'
+		})
 		.otherwise({
             redirectTo: '/home'
         });

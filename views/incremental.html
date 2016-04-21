@@ -1,73 +1,36 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" style="text/css" href="../assets/css/incremental.css">
-		<link rel="stylesheet" style="text/css" href="../assets/css/bootstrap.min.css">
-		<link rel="stylesheet" style="text/css" href="../assets/css/base.css">
-		<title>Asuldian's Incremental Game</title>
-		<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-		<script src="../assets/js/bootstrap.min.js"></script>
-		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-57535571-1']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-
-		</script>
-	</head>
-	<body>
-		<div id="top-title">
-			<div class="navbar navbar-static-top navbar-inverse">
-				<div class="navbar-inner">
-					<a class="brand" href="../index.html">Asuldian</a>
-					<ul class="nav">
-					  	<li><a href="../index.html">Home</a></li>
-					  	<li><a href="youtube-search.html">Youtube search</a></li>
-					  	<li><a href="google+.html">Google +</a></li>
-					  	<li class="active"><a href="incremental.html">The game</a></li>
-					</ul>
+<div id="top-alert"></div>
+<div id="page-content">
+	<div class="lfloat mlm mtl">
+		<div>			
+			{{pointName}}: {{points}}
+		</div>
+		<div>
+			{{pointName}} per second: {{pps}}
+		</div>
+		<div>
+			Click level : {{clickLvl}}</br>
+			Click value : {{clickValue}}
+		</div>
+		<div>				
+			<button type="button" id="increment" class="btn btn-default" ng-click="incrementPoint(clickValue)">Get {{pointName}}</button>
+			<button type="button" id="upgrade-increment" class="btn btn-succes" ng-click="upClick()" ng-disabled="points < clickUpNextCost">Upgrade click : {{clickUpNextCost}}</button>
+		</div>
+		<div>
+			<button type="button" id="save" class="btn btn-success" ng-click="save()">SAVE GAME</button>
+			<button type="button" id="load" class="btn btn-success" ng-click="load()">LOAD GAME</button>
+		</div>
+	</div>
+	<div class="rfloat mrm mtl">
+		<div class="upgrades">
+			<div class="cursors-upgrades">
+				<button type="button" id="buy-cursor" class="btn btn-primary" ng-click="buyCursor()" ng-disabled="points < cursorNextCost">Buy 1 cursor: {{cursorNextCost}}</button>
+				<button type="button" id="up-cursor" class="btn btn-warning" ng-click="upCursors()" ng-disabled="points < cursorUpNextCost">Upgrade cursor: {{cursorUpNextCost}}</button>
+				<div>
+					<div class="cursor-number mtm">{{cursors}} cursors owned.</div>
+					<div class="cursor-number">Cursor level: {{cursorUpLvl}}</div>
 				</div>
 			</div>
 		</div>
-		<div id="top-alert"></div>
-		<div id="page-content" class="navbar-text">
-			<div class="lfloat mlm mtl">
-				<div>			
-					<span class="point-name"></span>: <span id="points">0</span></br>
-				</div>
-				<div>
-					<span class="point-name"></span> per second: <span id="points-per-second">0</span></br>
-				</div>
-                <div>
-                    Click level : <span id="click-level">1</span></br>
-                    Click value : <span id="click-value">1</span></br>
-                </div>
-				<div>				
-					<button type="button" id="increment" class="btn btn-default">Get <span class="point-name"></span></button>
-					<button type="button" id="upgrade-increment" class="btn btn-succes">Upgrade click : <span id="click-up-cost">200</span></button>
-				</div>
-				<div>
-					<button type="button" id="save" class="btn btn-success">SAVE GAME</button>
-					<button type="button" id="load" class="btn btn-success">LOAD GAME</button>
-				</div>
-			</div>
-			<div class="rfloat mrm mtl">
-				<div class="upgrades">
-					<div class="cursors-upgrades">
-						<button type="button" id="buy-cursor" class="btn btn-primary">Buy 1 cursor: <span id="cursorCost">10</span></button>
-						<button type="button" id="up-cursor" class="btn btn-warning">Upgrade cursor: <span id="cursorUpCost">100</span></button></br>
-						<div class="rfloat cursor-number mtm"><span id="cursors">0</span> cursors owned.</div></br>
-						<div class="rfloat cursor-number">Cursor level: <span id="cursorUpLvl">1</span></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script type="text/javascript" src="../controllers/incremental.js"></script>
-	</body>
-</html>
+	</div>
+</div>
+<script type="text/javascript" src="controllers/incremental.js"></script>
