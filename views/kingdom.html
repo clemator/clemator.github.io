@@ -1,0 +1,50 @@
+<div id="top-alert"></div>
+<div id="page-content">
+	<div class="kingdomTop">
+		<div class="kingdomTopResource">
+			<h4><strong>Wood : {{kingdom.resource.resources.wood.amount}} </strong><span class="resourceProd">({{kingdom.resource.resources.wood.production}} /s)</span></h4>
+		</div>
+		<div class="kingdomTopResource">
+			<h4><strong>Stone : {{kingdom.resource.resources.stone.amount}} </strong><span class="resourceProd">({{kingdom.resource.resources.stone.production}} /s)</span></h4>
+		</div>
+		<div class="kingdomTopResource">
+			<h4><strong>Food : {{kingdom.resource.resources.food.amount}} </strong><span class="resourceProd">({{kingdom.resource.resources.food.production}} /s)</span></h4>
+		</div>
+		<div class="kingdomTopResource">
+			<h4><strong>Iron : {{kingdom.resource.resources.iron.amount}} </strong><span class="resourceProd">({{kingdom.resource.resources.iron.production}} /s)</span></h4>
+		</div>
+		<div class="kingdomTopResource">
+			<h4><strong>Gold : {{kingdom.resource.resources.gold.amount}} </strong><span class="resourceProd">({{kingdom.resource.resources.gold.production}} /s)</span></h4>
+		</div>
+		<div class="kingdomTopResource">
+			<h4><strong>Population : {{kingdom.population}} </strong></h4>
+		</div>
+	</div>
+	<div class="lfloat mlm mtl">
+		<div>			
+			<h1 class="kingdomName">{{kingdom.name}}</h1>
+		</div>
+		<div>
+			<button type="button" class="btn btn-success" ng-click="addWood()">Get Wood</button>
+			<button type="button" class="btn btn-info" ng-click="addStone()">Get Stone</button>
+			<button type="button" class="btn btn-warning" ng-click="addFood()">Get Food</button>
+			<button type="button" class="btn btn-danger" ng-click="addIron()">Get Iron</button>
+		</div>
+		<div class="mtm">
+			<button type="button" id="save" class="btn btn-success" ng-click="save()">SAVE GAME</button>
+			<button type="button" id="load" class="btn btn-success" ng-click="load()">LOAD GAME</button>
+		</div>
+	</div>
+	<div class="rfloat mrm mtl">
+		<div class="buildings">
+			<div class="buildings-upgrades">
+				<button type="button" id="buy-house" class="btn btn-primary" ng-click="buyHouse()" ng-disabled="kingdom.resource.resources.wood.amount < 50 && kingdom.resource.resources.stone.amount < 10">Buy 1 House</button>
+				<div>
+					<div class="cursor-number mtm">Add 5 to population.</div>
+					<div class="cursor-number">Current houses : {{}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="controllers/incremental.js"></script>

@@ -11,6 +11,10 @@ app.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'views/incremental.html',
 			controller: 'incrementalController'
 		})
+		.when('/kingdom', {
+			templateUrl: 'views/kingdom.html',
+			controller: 'kingdomController'
+		})
 		.otherwise({
             redirectTo: '/home'
         });
